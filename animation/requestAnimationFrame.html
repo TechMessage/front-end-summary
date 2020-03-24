@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background: #dda520;
+        }
+    </style>
+</head>
+<!-- 
+
+    requestAnimationFrame
+
+    1. 每秒的执行次数，和屏幕的刷新率一直，一般屏幕的刷新率是60hz, 每秒执行60次
+
+    2. 回调函数，接受唯一参数时间戳，表明当次执行回调函数时的时刻
+
+
+    兼容性： IE10
+
+ -->
+
+<body>
+
+
+    <div id="box"></div>
+
+    <script>
+        var start = null;
+        var element = document.getElementById('box');
+
+        function step(timestamp) {
+            if (!start) start = timestamp;
+            var progress = timestamp - start;
+            element.style.transform = 'translateX(' + Math.min(progress / 10, 200) + 'px)';
+            if (progress < 2000) {
+                window.requestAnimationFrame(step);
+            }
+        }
+
+        window.requestAnimationFrame(step);
+
+    </script>
+</body>
+
+</html>
